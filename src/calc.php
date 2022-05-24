@@ -5,11 +5,6 @@ echo file_get_contents('templates/head.html');
 
 $page = file_get_contents('templates/calc.html');
 
-$aside = $_GET['aside'];
-$bside = $_GET['bside'];
-$cside = $_GET['cside'];
-$dside = $_GET['dside'];
-
 function calcArea($aside, $bside, $cside, $dside) {    
     $s = ($aside+$bside+$cside+$dside)/2;
     $area = sqrt(
@@ -21,7 +16,25 @@ function calcArea($aside, $bside, $cside, $dside) {
     return $area;
 }
 
-$area = calcArea($aside, $bside, $cside, $dside);
+
+if(
+    !empty($_GET['aside']) and 
+    !empty($_GET['bside']) and 
+    !empty($_GET['cside']) and 
+    !empty($_GET['dside']) 
+) {
+    $aside = $_GET['aside'];
+    $bside = $_GET['bside'];
+    $cside = $_GET['cside'];
+    $dside = $_GET['dside'];
+    $area = calcArea($aside, $bside, $cside, $dside);    
+}else {
+    $area = "Hiba! Helytelen bemenő adatok";
+}
+
+
+
+
 
 $page = str_replace('{{ result }}', $area, $page);
 
